@@ -36,9 +36,10 @@ through the front end interface block.
 
   **NOTE**: This flowgraph is tailored for the [NI/Ettus USRP
 E310](https://www.ettus.com/all-products/e310/) and requires
-[UHD](https://github.com/EttusResearch/uhd) and a custom fork of
-[gr-ettus](https://github.com/meowdul8/gr-ettus) to be installed. However, it
-should be relatively easy to port the flowgraph to work on other SDR platforms.
+[UHD](https://github.com/EttusResearch/uhd) and a branch (`maint-3.8-uhd4.0`)
+of a custom fork of [gr-ettus](https://github.com/meowdul8/gr-ettus) to be
+installed.  However, it should be relatively easy to port the flowgraph to work
+on other SDR platforms.
 
 * **P25 framer**: This is a GNU Radio block in C++ based heavily on the
 [Osmocom op25 out-of-tree GNU Radio Module](https://github.com/osmocom/op25),

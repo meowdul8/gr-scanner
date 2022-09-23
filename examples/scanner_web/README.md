@@ -34,7 +34,7 @@ assumes the use of the shipping USRP E310 front end.
 
 * GNU Radio 3.8
 * UHD 4.1
-* [Fork of gr-ettus](https://github.com/meowdul8/gr-ettus)
+* [The `maint-3.8-uhd4.0` branch of a custom fork of gr-ettus](https://github.com/meowdul8/gr-ettus)
 * Python 3.8
 * Python `wsproto` module (use `pip3 install wsproto` to install)
 
