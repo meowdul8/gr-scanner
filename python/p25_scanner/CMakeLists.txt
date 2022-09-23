@@ -32,7 +32,6 @@ endif()
 GR_PYTHON_INSTALL(
     FILES
     __init__.py
-    ccmon_oop_ws.py
     p25_scanner_back_end.py
     scanner_oop_ws.py DESTINATION ${GR_PYTHON_DIR}/scanner/p25_scanner
 )
