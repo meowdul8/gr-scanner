@@ -1,0 +1,25 @@
+id: scanner_p25_frame_decoder
+label: P25 Frame Decoder
+category: '[gr-scanner]'
+
+templates:
+  imports: import scanner
+  make: scanner.p25_frame_decoder(${debug})
+
+parameters:
+- id: debug
+  label: Debug level
+  dtype: int
+  default: 0
+
+inputs:
+- domain: stream
+  label: dibits
+  dtype: byte
+
+outputs:
+- domain: message
+  id: p25
+  optional: true
+
+file_format: 1

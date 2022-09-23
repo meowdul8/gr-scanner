@@ -1,0 +1,32 @@
+id: scanner_fsk4_demodulator
+label: FSK 4-level Demodulator
+category: '[gr-scanner]'
+
+templates:
+  imports: import scanner
+  make: scanner.fsk4_demodulator(${sample_rate}, ${symbol_rate})
+
+parameters:
+- id: sample_rate
+  label: Sample Rate
+  dtype: float
+  default: '87500'
+- id: symbol_rate
+  label: Symbol Rate
+  dtype: float
+  default: '4800'
+
+inputs:
+- domain: stream
+  label: in
+  dtype: float
+
+outputs:
+- domain: stream
+  label: dibits
+  dtype: byte
+- domain: message
+  id: tune
+  optional: true
+
+file_format: 1

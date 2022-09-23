@@ -1,0 +1,718 @@
+options:
+  parameters:
+    author: Aaron Rossetto
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: (C) 2022 Aaron Rossetto
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: p25_scanner_e310_2ch
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: P25 Scanner (E310, 2ch)
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: channel_sample_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: (master_clock_rate / 224.0)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 12.0]
+    rotation: 0
+    state: true
+- name: demod_gain
+  id: variable
+  parameters:
+    comment: ''
+    value: channel_sample_rate / (2.0 * math.pi * (1800 * 3) / 8)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 348.0]
+    rotation: 0
+    state: enabled
+- name: ettus_rfnoc_graph
+  id: ettus_rfnoc_graph
+  parameters:
+    alias: ''
+    clock_source_0: ''
+    clock_source_1: ''
+    clock_source_2: ''
+    clock_source_3: ''
+    clock_source_4: ''
+    clock_source_5: ''
+    clock_source_6: ''
+    clock_source_7: ''
+    comment: ''
+    dev_addr: device_args
+    dev_args: '"master_clock_rate={}".format(master_clock_rate)'
+    num_mboards: '1'
+    time_source_0: ''
+    time_source_1: ''
+    time_source_2: ''
+    time_source_3: ''
+    time_source_4: ''
+    time_source_5: ''
+    time_source_6: ''
+    time_source_7: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 12.0]
+    rotation: 0
+    state: true
+- name: master_clock_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '19600000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [384, 12.0]
+    rotation: 0
+    state: true
+- name: radio_center_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: '852500000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1760, 180.0]
+    rotation: 0
+    state: true
+- name: radio_gain
+  id: variable
+  parameters:
+    comment: ''
+    value: '70'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1888, 180.0]
+    rotation: 0
+    state: true
+- name: vec_size
+  id: variable
+  parameters:
+    comment: ''
+    value: '128'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 12.0]
+    rotation: 0
+    state: true
+- name: analog_demod_cc
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: quad_demod_control_channel
+    comment: ''
+    gain: demod_gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [416, 268.0]
+    rotation: 0
+    state: true
+- name: analog_demod_tc
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: quad_demod_traffic_channel
+    comment: ''
+    gain: demod_gain
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [416, 444.0]
+    rotation: 0
+    state: true
+- name: back_end_module_name
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: b
+    type: str
+    value: ''''''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 92.0]
+    rotation: 0
+    state: true
+- name: back_end_module_parameters
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: ''
+    short_id: p
+    type: str
+    value: ''''''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 188.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_to_stream_cc
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: vector_to_stream_control_channel
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: vec_size
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 272.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_to_stream_tc
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: vector_to_stream_traffic_channel
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: vec_size
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2760, 432.0]
+    rotation: 0
+    state: true
+- name: cc_offset
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: cc_offset
+    short_id: ''
+    type: eng_float
+    value: '1632500.0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2344, 148.0]
+    rotation: 0
+    state: true
+- name: dc_blocker_cc
+  id: dc_blocker_xx
+  parameters:
+    affinity: ''
+    alias: dc_blocker_control_channel
+    comment: ''
+    length: 1024+0*(int(channel_sample_rate / 4800.0) * 4)
+    long_form: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: ff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 260.0]
+    rotation: 0
+    state: true
+- name: dc_blocker_tc
+  id: dc_blocker_xx
+  parameters:
+    affinity: ''
+    alias: dc_blocker_traffic_channel
+    comment: ''
+    length: 1024+0*(int(channel_sample_rate / 4800.0) * 4)
+    long_form: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: ff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 436.0]
+    rotation: 0
+    state: true
+- name: device_args
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: device_args
+    short_id: d
+    type: str
+    value: ''''''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 76.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_ddc_cc
+  id: ettus_rfnoc_ddc
+  parameters:
+    affinity: ''
+    alias: rfnoc_ddc_control_chan
+    block_args: ''
+    comment: ''
+    device_select: '-1'
+    freq: cc_offset
+    instance_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    output_rate: channel_sample_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2272, 4.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_ddc_tc
+  id: ettus_rfnoc_ddc
+  parameters:
+    affinity: ''
+    alias: rfnoc_ddc_traffic_chan
+    block_args: ''
+    comment: ''
+    device_select: '-1'
+    freq: tc_offset
+    instance_index: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    output_rate: channel_sample_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2272, 596.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_rx_radio
+  id: ettus_rfnoc_rx_radio
+  parameters:
+    affinity: ''
+    agc: Default
+    alias: rfnoc_rx_radio
+    antenna: RX2
+    bandwidth: master_clock_rate
+    block_args: '"spp={}".format(vec_size)'
+    comment: ''
+    dc_offset: 'True'
+    device_select: '-1'
+    frequency: radio_center_freq
+    gain: radio_gain
+    instance_index: '0'
+    iq_balance: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    rate: master_clock_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1760, 244.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_rx_streamer_cc
+  id: ettus_rfnoc_rx_streamer
+  parameters:
+    affinity: ''
+    alias: rfnoc_rx_streamer_control_channel
+    args: '"spp={}".format(vec_size)'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    otw: sc16
+    output_type: fc32
+    vlen: vec_size
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2568, 272.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_rx_streamer_tc
+  id: ettus_rfnoc_rx_streamer
+  parameters:
+    affinity: ''
+    alias: rfnoc_rx_streamer_traffic_channel
+    args: '"spp={}".format(vec_size)'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_chans: '1'
+    otw: sc16
+    output_type: fc32
+    vlen: vec_size
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2568, 432.0]
+    rotation: 0
+    state: true
+- name: ettus_rfnoc_split_stream
+  id: ettus_rfnoc_split_stream
+  parameters:
+    affinity: ''
+    alias: rfnoc_split_stream
+    block_args: ''
+    comment: ''
+    device_select: '-1'
+    instance_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_branches: '2'
+    num_chans: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2008, 300.0]
+    rotation: 0
+    state: true
+- name: front_end_interface
+  id: scanner_front_end_interface
+  parameters:
+    affinity: ''
+    alias: front_end_interface
+    comment: ''
+    input_channel_list: cc_pdus, tc_pdus
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    module_and_class_name: back_end_module_name
+    module_and_class_parameters: back_end_module_parameters
+    output_channel_list: radio_freq, radio_gain, cc_offset, tc_offset
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1432, 304.0]
+    rotation: 0
+    state: true
+- name: fsk4_cc
+  id: scanner_fsk4_demodulator
+  parameters:
+    affinity: ''
+    alias: fsk4_control_channel
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: '87500'
+    symbol_rate: '4800'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 260.0]
+    rotation: 0
+    state: true
+- name: fsk4_tc
+  id: scanner_fsk4_demodulator
+  parameters:
+    affinity: ''
+    alias: fsk4_traffic_channel
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    sample_rate: '87500'
+    symbol_rate: '4800'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 436.0]
+    rotation: 0
+    state: true
+- name: low_pass_filter_cc
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: lpf_control_channel
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '12500'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: channel_sample_rate
+    type: fir_filter_ccf
+    width: '3000'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 220.0]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_tc
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: lpf_traffic_channel
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '12500'
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: channel_sample_rate
+    type: fir_filter_ccf
+    width: '3000'
+    win: firdes.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [224, 396.0]
+    rotation: 0
+    state: enabled
+- name: p25_framer_cc
+  id: scanner_p25_frame_decoder
+  parameters:
+    affinity: ''
+    alias: p25_framer_control_channel
+    comment: ''
+    debug: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 252.0]
+    rotation: 0
+    state: true
+- name: p25_framer_tc
+  id: scanner_p25_frame_decoder
+  parameters:
+    affinity: ''
+    alias: p25_framer_traffic_channel
+    comment: ''
+    debug: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1232, 428.0]
+    rotation: 0
+    state: true
+- name: rrc_filter_cc
+  id: root_raised_cosine_filter
+  parameters:
+    affinity: ''
+    alias: rrc_control_channel
+    alpha: '0.2'
+    comment: ''
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: '360'
+    samp_rate: channel_sample_rate
+    sym_rate: '4800'
+    type: fir_filter_fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 228.0]
+    rotation: 0
+    state: true
+- name: rrc_filter_tc
+  id: root_raised_cosine_filter
+  parameters:
+    affinity: ''
+    alias: rrc_traffic_channel
+    alpha: '0.2'
+    comment: ''
+    decim: '1'
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: '360'
+    samp_rate: channel_sample_rate
+    sym_rate: '4800'
+    type: fir_filter_fff
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 404.0]
+    rotation: 0
+    state: true
+- name: tc_offset
+  id: parameter
+  parameters:
+    alias: ''
+    comment: ''
+    hide: none
+    label: tc_offset
+    short_id: ''
+    type: eng_float
+    value: '-600000.0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2344, 500.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_cc
+  id: virtual_sink
+  parameters:
+    alias: virtual_sink_control_channel
+    comment: ''
+    stream_id: control_chan_bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2936, 268.0]
+    rotation: 0
+    state: true
+- name: virtual_sink_tc
+  id: virtual_sink
+  parameters:
+    alias: virtual_sink_traffic_channel
+    comment: ''
+    stream_id: traffic_chan_bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2936, 428.0]
+    rotation: 0
+    state: true
+- name: virtual_source_cc
+  id: virtual_source
+  parameters:
+    alias: virtual_source_control_channel
+    comment: ''
+    stream_id: control_chan_bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 268.0]
+    rotation: 0
+    state: true
+- name: virtual_source_tc
+  id: virtual_source
+  parameters:
+    alias: virtual_source_traffic_channel
+    comment: ''
+    stream_id: traffic_chan_bb
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 444.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_demod_cc, '0', dc_blocker_cc, '0']
+- [analog_demod_tc, '0', dc_blocker_tc, '0']
+- [blocks_vector_to_stream_cc, '0', virtual_sink_cc, '0']
+- [blocks_vector_to_stream_tc, '0', virtual_sink_tc, '0']
+- [dc_blocker_cc, '0', rrc_filter_cc, '0']
+- [dc_blocker_tc, '0', rrc_filter_tc, '0']
+- [ettus_rfnoc_ddc_cc, '0', ettus_rfnoc_rx_streamer_cc, '0']
+- [ettus_rfnoc_ddc_tc, '0', ettus_rfnoc_rx_streamer_tc, '0']
+- [ettus_rfnoc_rx_radio, '0', ettus_rfnoc_split_stream, '0']
+- [ettus_rfnoc_rx_streamer_cc, '0', blocks_vector_to_stream_cc, '0']
+- [ettus_rfnoc_rx_streamer_tc, '0', blocks_vector_to_stream_tc, '0']
+- [ettus_rfnoc_split_stream, '0', ettus_rfnoc_ddc_cc, '0']
+- [ettus_rfnoc_split_stream, '1', ettus_rfnoc_ddc_tc, '0']
+- [front_end_interface, out0, ettus_rfnoc_rx_radio, freq]
+- [front_end_interface, out1, ettus_rfnoc_rx_radio, gain]
+- [front_end_interface, out2, ettus_rfnoc_ddc_cc, freq]
+- [front_end_interface, out3, ettus_rfnoc_ddc_tc, freq]
+- [fsk4_cc, '0', p25_framer_cc, '0']
+- [fsk4_tc, '0', p25_framer_tc, '0']
+- [low_pass_filter_cc, '0', analog_demod_cc, '0']
+- [low_pass_filter_tc, '0', analog_demod_tc, '0']
+- [p25_framer_cc, p25, front_end_interface, in0]
+- [p25_framer_tc, p25, front_end_interface, in1]
+- [rrc_filter_cc, '0', fsk4_cc, '0']
+- [rrc_filter_tc, '0', fsk4_tc, '0']
+- [virtual_source_cc, '0', low_pass_filter_cc, '0']
+- [virtual_source_tc, '0', low_pass_filter_tc, '0']
+
+metadata:
+  file_format: 1

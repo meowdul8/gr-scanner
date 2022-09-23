@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="scanner.css" />
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+   </head>
+   <body class="layout">
+      <header>
+         <div class="scanner_navbar">
+            <div class="scanner_title">P25 Scanner</div>
+            <div class="scanner_status">
+                <div class="scanner_status_cc"><span class="qual_sigil" id="cc_status"></span></div>
+                <div class="scanner_status_cc_quality"><span class="qual_sigil">Control </span> <span id="cc_quality"></span></div>
+                <div class="scanner_status_tc_quality"><span class="qual_sigil">Traffic </span> <span id="tc_quality"></span></div>
+            </div>
+        </div>
+      </header>
+      <main>
+         <div class="scanner_freqtable" id="system_table">
+            <!--
+            <div class="scanner_rowgroup" id="8511375">
+               <div class="scanner_col0 scanner_cell_frequency">851.1375 MHz</div>
+               <div class="scanner_col1">1222</div>
+               <div class="scanner_col2 scanner_cell_category">&#x1F691;</div>
+               <div class="scanner_col3">TCEMS MedCom North</div>
+               <div class="scanner_col4">A523EA</div>
+            </div>
+            <div class="scanner_rowgroup" id="pulldown_8511375">
+               <div class="scanner_pulldown scanner_pulldown_open_color">
+                  <button class="scanner_pd_button">HOLD GROUP</button>
+                  <button class="scanner_pd_button">L/O GROUP</button>
+                  <button class="scanner_pd_button">GROUP PRIO</button>
+               </div>
+               </div>
+            -->
+         </div>
+      </main>
+      <script src="scanner.js"></script>
+      <script src="jquery-3.6.0.js"></script>
+      <script src="pcm-player.js"></script>
+   </body>
+</html>
